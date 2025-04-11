@@ -1,0 +1,126 @@
+[gd_scene load_steps=12 format=4 uid="uid://bxcfp0cr2qjyp"]
+
+[ext_resource type="Texture2D" uid="uid://bei6jjmgx817u" path="res://gfx/ground.png" id="1_2jas5"]
+[ext_resource type="Texture2D" uid="uid://xosogaxgqico" path="res://gfx/player.png" id="2_wcwec"]
+[ext_resource type="Script" uid="uid://c7ad4jx6mnj3q" path="res://addons/composition/component_owner.gd" id="3_rujmf"]
+[ext_resource type="Script" uid="uid://8i0a4adbs780" path="res://component_movable.gd" id="4_kkclv"]
+[ext_resource type="Texture2D" uid="uid://d3p2qklnjbwfs" path="res://gfx/crate.png" id="4_ugfer"]
+[ext_resource type="Script" uid="uid://bp1p6e5s3oo0p" path="res://component_control.gd" id="5_mt10o"]
+[ext_resource type="Script" uid="uid://df1t83fag52x8" path="res://component_grid_object.gd" id="6_kkclv"]
+[ext_resource type="PackedScene" uid="uid://dysnoo1g7scmw" path="res://wall.tscn" id="8_kkclv"]
+[ext_resource type="Script" uid="uid://28eukx6v4ah4" path="res://component_pushable.gd" id="8_mt10o"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n51mc"]
+texture = ExtResource("1_2jas5")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_8lvy3"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_n51mc")
+
+[node name="Example" type="TileMapLayer"]
+position = Vector2(-32, -32)
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAAAAAAAAAABAAQAAAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAAAAAAAAAADAAMAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAQAAAAAAAAAAAAAAAUAAAAAAAAAAAABAAUAAAAAAAAAAAACAAUAAAAAAAAAAAADAAUAAAAAAAAAAAAEAAUAAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAEAAAAAAAAAAAAFAAIAAAAAAAAAAAAFAAMAAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAUAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_8lvy3")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(160, 224)
+texture = ExtResource("2_wcwec")
+metadata/_edit_group_ = true
+
+[node name="ComponentOwner" type="Node" parent="Player"]
+script = ExtResource("3_rujmf")
+move_time = 0.3
+solid = true
+
+[node name="ComponentMovable" type="Node" parent="Player/ComponentOwner"]
+script = ExtResource("4_kkclv")
+
+[node name="ComponentControl" type="Node" parent="Player/ComponentOwner"]
+script = ExtResource("5_mt10o")
+
+[node name="ComponentGridObject" type="Node" parent="Player/ComponentOwner"]
+script = ExtResource("6_kkclv")
+solid = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="Crate" type="Sprite2D" parent="."]
+position = Vector2(224, 160)
+texture = ExtResource("4_ugfer")
+
+[node name="ComponentOwner" type="Node" parent="Crate"]
+script = ExtResource("3_rujmf")
+solid = true
+move_time = 0.3
+
+[node name="ComponentGridObject" type="Node" parent="Crate/ComponentOwner"]
+script = ExtResource("6_kkclv")
+solid = true
+
+[node name="ComponentMovable" type="Node" parent="Crate/ComponentOwner"]
+script = ExtResource("4_kkclv")
+
+[node name="ComponentPushable" type="Node" parent="Crate/ComponentOwner"]
+script = ExtResource("8_mt10o")
+
+[node name="Wall" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(32, 224)
+
+[node name="Wall2" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(32, 160)
+
+[node name="Wall3" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(32, 96)
+
+[node name="Wall4" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(32, 32)
+
+[node name="Wall5" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(96, 32)
+
+[node name="Wall6" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(160, 32)
+
+[node name="Wall7" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(224, 32)
+
+[node name="Wall8" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(288, 32)
+
+[node name="Wall9" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(352, 32)
+
+[node name="Wall10" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(352, 96)
+
+[node name="Wall11" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(352, 160)
+
+[node name="Wall12" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(352, 224)
+
+[node name="Wall13" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(352, 288)
+
+[node name="Wall14" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(352, 352)
+
+[node name="Wall15" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(288, 352)
+
+[node name="Wall16" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(224, 352)
+
+[node name="Wall17" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(160, 352)
+
+[node name="Wall18" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(96, 352)
+
+[node name="Wall19" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(32, 352)
+
+[node name="Wall20" parent="." instance=ExtResource("8_kkclv")]
+position = Vector2(32, 288)

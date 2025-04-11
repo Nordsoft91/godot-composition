@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dysnoo1g7scmw"]
+
+[ext_resource type="Texture2D" uid="uid://dtu5qs4peoci" path="res://gfx/block.png" id="1_iuee5"]
+[ext_resource type="Script" uid="uid://c7ad4jx6mnj3q" path="res://addons/composition/component_owner.gd" id="2_xduj2"]
+[ext_resource type="Script" uid="uid://df1t83fag52x8" path="res://component_grid_object.gd" id="3_bbgl8"]
+
+[node name="Wall" type="Sprite2D"]
+texture = ExtResource("1_iuee5")
+
+[node name="ComponentOwner" type="Node" parent="."]
+script = ExtResource("2_xduj2")
+solid = true
+
+[node name="ComponentGridObject" type="Node" parent="ComponentOwner"]
+script = ExtResource("3_bbgl8")
+solid = true
