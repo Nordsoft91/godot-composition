@@ -8,6 +8,7 @@ A component-based architecture for Godot. Allows to extend the functionality of 
 - Easy creation and management of components from the editor.
 - Work with components as with regular nodes.
 - Components can be created as scenes or scripts.
+- Fully documented.
 
 ![Composition](docs/images/feature_01.png)
 ![Composition](docs/images/feature_02.png)
