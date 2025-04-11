@@ -2,11 +2,24 @@
 
 A component-based architecture for Godot. Allows to extend the functionality of a node.
 
+## Features
+
+- Create components that extend the functionality of a node.
+- Easy creation and management of components from the editor.
+- Work with components as with regular nodes.
+- Components can be created as scenes or scripts.
+
+![Composition](docs/images/feature_01.png)
+![Composition](docs/images/feature_02.png)
+
 ## Installation
 
 1. Download the latest release from the [releases page](https://github.com/Nordsoft91/composition/releases).
 2. Extract the archive into your project's `addons` folder.
-3. Enable the plugin in your project settings.
+3. Enable the plugin in your project settings. To do this, open the project settings, go to the `Plugins` tab, and click the `On` button next to the `Composition` plugin.
+
+![Enable plugin](docs/images/enable_plugin.png)
+
 
 ## Composition vs inheritance
 
@@ -20,11 +33,27 @@ Composition is a way to extend the functionality of a node by adding new nodes a
 
 ### Creating a component
 
+#### Component script
+
 To create a component, create a new script that extends `Component`. The component will be automatically registered with the composition system.
 
 ```gdscript
 extends Component
+
+@export var my_property: int = 0
+
+func _node_ready() -> void:
+	var node: Node = get_object() # Returns node that owns this component.
+	var other_component: Component = other("MyComponent") # Returns sibling component with the given name.
 ```
+
+#### Component scene
+
+To create a component, create a new scene that extends `Component`. The component will be automatically registered with the composition system.
+
+![Component scene](docs/images/component_scene.png)
+
+Select component node and press eextend the script with your custom component script.
 
 ### Work with components from the editor
 
@@ -42,20 +71,23 @@ To create a new component press the `Create component` button in the node's insp
 ![Create component button](docs/images/create_component_button.png)
 
 Then select a script or a component scene to create a new component.
+If scripts are not visible, search for them in the search bar. It's advised to name component script and scenes with some prefix, e.g. `component_` or `composition_`.
 
 ![Create component popup](docs/images/create_component_popup.png)
 
 You will be able to see and edit all the components that are owned by the node from the inspector.
 
-![Component inspector](docs/images/component_inspector.png)
+![Component inspector](docs/images/feature_01.png)
+
+To return to the node's inspector press the `Node Properties` button.
+
+![Node properties button](docs/images/node_properties_button.png)
 
 If you have a nested scene, you can add new components to the node by adding new nodes as children of the desired node. Select `Component` node type and extend the script with your custom component script.
 
-![Component node](docs/images/component_node.png)
+![Component node](docs/images/component_scene.png)
 
 To remove a component, select it from scene tree and press the `Remove` button.
-
-![Remove component button](docs/images/remove_component_button.png)
 
 ### Work with components from code
 
