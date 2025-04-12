@@ -65,7 +65,7 @@ func _on_component_selected(res: String, object):
 			EditorInterface.popup_dialog_centered.call_deferred(error_dialog)
 			return
 	
-	if resource is Script:
+	elif resource is Script:
 		script = resource
 
 	if script == ComponentBaseScript:
@@ -92,9 +92,14 @@ func _on_component_selected(res: String, object):
 		EditorInterface.popup_dialog_centered.call_deferred(error_dialog)
 		return
 
-	var component: Component = Component.new()
-	component.set_script(script)
-	component.name = component_name
+	var component: Component
+	if resource is PackedScene:
+		component = resource.instantiate()
+		component.name = component_name
+	else:
+		component = Component.new()
+		component.set_script(script)
+		component.name = component_name
 	
 	if global_component_mode:
 		object.add_child(component)
