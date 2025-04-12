@@ -83,7 +83,7 @@ func _on_component_selected(res: String, object):
 		return
 
 	var component_name = res.get_file().get_slice('.', 0).to_pascal_case()
-	if object.get_node(component_name):
+	if object.has_node(component_name):
 		var error_dialog = AcceptDialog.new()
 		error_dialog.title = "Error"
 		error_dialog.dialog_text = "Component with the same name already exists"
@@ -93,8 +93,12 @@ func _on_component_selected(res: String, object):
 	var component: Component = Component.new()
 	component.set_script(script)
 	component.name = component_name
-	object.add_child(component)
-	component.owner = object.owner
+	if EditorInterface.get_edited_scene_root() == object.get_parent() or object.get_parent().scene_file_path.is_empty():
+		object.add_child(component)
+		component.owner = object.owner
+	else:
+		object.get_parent().add_child(component)
+		component.owner = object.get_parent().owner
 	EditorInterface.edit_node(component)
 	EditorInterface.edit_node.call_deferred(object)
 	

@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://cr4nlgapbwa2i"]
+
+[ext_resource type="Texture2D" uid="uid://d3p2qklnjbwfs" path="res://gfx/crate.png" id="1_c7plm"]
+[ext_resource type="Script" uid="uid://c7ad4jx6mnj3q" path="res://addons/composition/component_owner.gd" id="2_uxllr"]
+[ext_resource type="Script" uid="uid://df1t83fag52x8" path="res://component_grid_object.gd" id="3_le5mb"]
+[ext_resource type="Script" uid="uid://8i0a4adbs780" path="res://component_movable.gd" id="5_c7plm"]
+[ext_resource type="Script" uid="uid://28eukx6v4ah4" path="res://component_pushable.gd" id="5_o43sl"]
+
+[node name="Crate" type="Sprite2D"]
+texture = ExtResource("1_c7plm")
+
+[node name="ComponentOwner" type="Node" parent="."]
+script = ExtResource("2_uxllr")
+solid = true
+move_time = 0.3
+
+[node name="ComponentGridObject" type="Node" parent="ComponentOwner"]
+script = ExtResource("3_le5mb")
+solid = true
+
+[node name="ComponentPushable" type="Node" parent="ComponentOwner"]
+script = ExtResource("5_o43sl")
+
+[node name="ComponentMovable" type="Node" parent="ComponentOwner"]
+script = ExtResource("5_c7plm")
