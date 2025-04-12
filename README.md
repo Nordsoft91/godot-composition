@@ -69,6 +69,9 @@ You can also find `ComponentOwner` node in the node's hierarchy. This node is th
 
 To create a new component press the `Create component` button in the node's inspector.
 
+*Note: This button is available only in Godot 4.4 or higher.
+In this case, you can create a component by adding a new node as a child of the node and extending the script with your custom component script.*
+
 ![Create component button](docs/images/create_component_button.png)
 
 Then select a script or a component scene to create a new component.

@@ -5,11 +5,14 @@ var ComponentOwnerControl = preload("res://addons/composition/editor/component_o
 var ComponentOwnerScript = preload("res://addons/composition/component_owner.gd")
 var ComponentBaseScript = preload("res://addons/composition/component.gd")
 
+var editor_interface: EditorInterface = null
+var compatibility_mode: bool = false
+
 func _can_handle(object: Object):
 	return object is Node and not object is Component
 	
 func _parse_begin(object: Object):
-	if object.get_script() == ComponentOwnerScript:
+	if not compatibility_mode and object.get_script() == ComponentOwnerScript:
 		var button_new = Button.new()
 		button_new.text = "Create component"
 		button_new.tooltip_text = "Create new component. Select a script or a component scene."
@@ -36,11 +39,12 @@ func _parse_category(object: Object, category: String):
 func _on_button_back_pressed(object):
 	if object.get_components().is_empty():
 		object.queue_free()
-	EditorInterface.inspect_object(object.get_parent())
+
+	editor_interface.inspect_object(object.get_parent())
 
 
 func _on_button_new_component(object):
-	EditorInterface.popup_quick_open.call_deferred(_on_component_selected.bind(object), ["Script", "PackedScene"])
+	editor_interface.call_deferred("popup_quick_open", _on_component_selected.bind(object), ["Script", "PackedScene"])
 
 
 func _on_component_selected(res: String, object):
@@ -62,7 +66,7 @@ func _on_component_selected(res: String, object):
 			var error_dialog = AcceptDialog.new()
 			error_dialog.title = "Error"
 			error_dialog.dialog_text = "Selected scene does not contain a script."
-			EditorInterface.popup_dialog_centered.call_deferred(error_dialog)
+			editor_interface.popup_dialog_centered.call_deferred(error_dialog)
 			return
 	
 	elif resource is Script:
@@ -72,24 +76,24 @@ func _on_component_selected(res: String, object):
 		var error_dialog = AcceptDialog.new()
 		error_dialog.title = "Error"
 		error_dialog.dialog_text = "Cannot add abstract component. Create a new component instead."
-		EditorInterface.popup_dialog_centered.call_deferred(error_dialog)
+		editor_interface.popup_dialog_centered.call_deferred(error_dialog)
 		return
 
 	if script.get_base_script() != ComponentBaseScript:
 		var error_dialog = AcceptDialog.new()
 		error_dialog.title = "Error"
 		error_dialog.dialog_text = "Component must extend Component class"
-		EditorInterface.popup_dialog_centered.call_deferred(error_dialog)
+		editor_interface.popup_dialog_centered.call_deferred(error_dialog)
 		return
 
-	var global_component_mode: bool = EditorInterface.get_edited_scene_root() == object.get_parent() or object.get_parent().scene_file_path.is_empty()
+	var global_component_mode: bool = editor_interface.get_edited_scene_root() == object.get_parent() or object.get_parent().scene_file_path.is_empty()
 	
 	var component_name = res.get_file().get_slice('.', 0).to_pascal_case()
 	if global_component_mode and object.has_node(component_name) or object.get_parent().has_node(component_name):
 		var error_dialog = AcceptDialog.new()
 		error_dialog.title = "Error"
 		error_dialog.dialog_text = "Component with the same name already exists"
-		EditorInterface.popup_dialog_centered.call_deferred(error_dialog)
+		editor_interface.popup_dialog_centered.call_deferred(error_dialog)
 		return
 
 	var component: Component
@@ -107,7 +111,8 @@ func _on_component_selected(res: String, object):
 	else:
 		object.get_parent().add_child(component)
 		component.owner = object.get_parent().owner
-	EditorInterface.edit_node(component)
-	EditorInterface.edit_node.call_deferred(object)
+
+	editor_interface.edit_node(component)
+	editor_interface.edit_node.call_deferred(object)
 	
 	
