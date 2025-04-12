@@ -141,14 +141,14 @@ This object has signals that are emitted when a component is added or removed.
 ```gdscript
 func _ready():
 	var component_owner = Component.component_owner(self)
-    component_owner.connect("component_added", self, "_on_component_added")
-    component_owner.connect("component_removed", self, "_on_component_removed")
+	component_owner.connect("component_added", self, "_on_component_added")
+	component_owner.connect("component_removed", self, "_on_component_removed")
 
 func _on_component_added(component: Component) -> void:
-    print("Component added: ", component)
+	print("Component added: ", component)
 
 func _on_component_removed(component: Component) -> void:
-    print("Component removed: ", component)
+	print("Component removed: ", component)
 ```
 
 ## Contributing

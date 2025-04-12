@@ -124,3 +124,11 @@ position = Vector2(32, 352)
 
 [node name="Wall20" parent="." instance=ExtResource("8_kkclv")]
 position = Vector2(32, 288)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "WASD / Arrows
+to move"
