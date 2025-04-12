@@ -65,10 +65,23 @@ func _init() -> void:
 		__fix_parenting.call_deferred()
 		
 func _enter_tree() -> void:
-	get_object().ready.connect(_node_ready)
+	# local override mode
+	if get_parent().name == COMPONENT_OWNER_NAME and get_object().has_node(NodePath(name)):
+		queue_free()
+		return
+	
+	if not get_object().ready.is_connected(_node_ready):
+		get_object().ready.connect(_node_ready)
+
+func _exit_tree() -> void:
+	if get_parent().name == COMPONENT_OWNER_NAME:
+		get_parent().removed.emit(self)
 
 func __fix_parenting() -> void:
 	var co = component_owner(get_parent())
 	if co:
+		if co.has_node(NodePath(name)):
+			co.get_node(NodePath(name)).name = "@to_remove"
 		reparent(co)
-		var n: Node
+	
+	get_parent().added.emit(self)

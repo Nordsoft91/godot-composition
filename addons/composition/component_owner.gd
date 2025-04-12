@@ -13,26 +13,26 @@ signal removed(component: Component)
 
 ## Returns all components of the node.
 func get_components() -> Array[Component]:
-	var _comps: Array[Component]
+	var _comps: Dictionary #StringName -> Component
+	
 	for a in get_children(true):
 		if a is Component:
-			_comps.append(a)
+			_comps[a.name] = a
 
 	if get_parent():
 		for a in get_parent().get_children(true):
 			if a is Component:
-				_comps.append(a)
+				_comps[a.name] = a
 
-	return _comps
+	var _comps_values: Array[Component]
+	_comps_values.assign(_comps.values()) #wierd workaround due to Godot limitation to convert Array to typed Array
+	return _comps_values
 
 
 
 func _init() -> void:
 	name = Component.COMPONENT_OWNER_NAME
-	child_entered_tree.connect(added.emit)
-	child_exiting_tree.connect(removed.emit)
 
-	
 func _get_property_list() -> Array[Dictionary]:
 	var _props: Array[Dictionary]
 	for a in get_components():
