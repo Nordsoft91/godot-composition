@@ -90,6 +90,29 @@ If you have a nested scene, you can add new components to the node by adding new
 
 To remove a component, select it from scene tree and press the `Remove` button.
 
+#### Nested scenes
+
+If you have a nested scene, you can also add new components to the node. In this case, original scene will not be modified.
+
+![Nested scene](docs/images/nested_scene.png)
+
+#### Override properties
+
+You can override properties of the component script in the node's inspector.
+But if you simply modify value it will not be saved.
+
+![Override properties](docs/images/override_properties.png)
+
+First, you need to add new component which contains the property you want to override.
+In the example from the screenshot, we will add `component_movable` component.
+
+![Override properties](docs/images/override_properties_2.png)
+
+After that, you can override the property in the node's inspector.
+
+![Override properties](docs/images/override_properties_3.png)
+
+
 ### Work with components from code
 
 To get a component use `Component.find` method.

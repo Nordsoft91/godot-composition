@@ -48,9 +48,6 @@ solid = true
 [node name="Crate" parent="." instance=ExtResource("7_kkclv")]
 position = Vector2(224, 160)
 
-[node name="ComponentMovable" type="Node" parent="Crate"]
-script = ExtResource("4_kkclv")
-
 [node name="Wall" parent="." instance=ExtResource("8_kkclv")]
 position = Vector2(32, 224)
 
