@@ -33,6 +33,7 @@ func _parse_category(object: Object, category: String):
 		else:
 			var component_owner_check = ComponentOwnerControl.new()
 			component_owner_check.object = object
+			component_owner_check.editor_interface = editor_interface
 			add_custom_control(component_owner_check)
 
 

@@ -7,13 +7,17 @@ var to_components_button: Button = null
 
 var object: Node = null
 
+var editor_interface: EditorInterface
+
 func _enter_tree() -> void:
 	show_components_button()
 
 
 func show_components_button():
 	to_components_button = Button.new()
-	to_components_button.auto_translate_mode = Node.AUTO_TRANSLATE_MODE_DISABLED
+	#Node.AUTO_TRANSLATE_MODE_DISABLED, hardcoded for compatibility
+	if to_components_button.get("auto_translate_mode") != null:
+		to_components_button.set("auto_translate_mode", 2) 
 	to_components_button.text = "Components"
 	to_components_button.tooltip_text = "Go to components"
 	to_components_button.set_h_size_flags(SIZE_EXPAND_FILL)
@@ -30,4 +34,4 @@ func _on_components_button_pressed():
 			component_owner.owner = get_tree().edited_scene_root
 
 		if component_owner:
-			EditorInterface.inspect_object.call_deferred(component_owner)
+			editor_interface.inspect_object.call_deferred(component_owner)
