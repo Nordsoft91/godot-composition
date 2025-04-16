@@ -181,7 +181,7 @@ func _on_component_removed(component: Component) -> void:
 
 Contributions are welcome! Please open an issue or submit a pull request.
 
-If you want to support me you can buy me a coffee https://buymeacoffee.com/nordsoft :)
+If you want to support me you can https://buymeacoffee.com/nordsoft :blush:
 
 ## License
 
