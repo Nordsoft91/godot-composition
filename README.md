@@ -181,6 +181,8 @@ func _on_component_removed(component: Component) -> void:
 
 Contributions are welcome! Please open an issue or submit a pull request.
 
+If you want to support me you can buy me a coffee https://buymeacoffee.com/nordsoft :)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
