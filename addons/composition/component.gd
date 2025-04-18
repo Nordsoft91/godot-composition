@@ -59,12 +59,11 @@ static func add(object: Node, component: Component) -> void:
 
 
 const COMPONENT_OWNER_NAME: String = "ComponentOwner"
-
-func _init() -> void:
-	if not Engine.is_editor_hint():
-		__fix_parenting.call_deferred()
 		
 func _enter_tree() -> void:
+	if not Engine.is_editor_hint():
+		__fix_parenting()
+		
 	# local override mode
 	if get_parent().name == COMPONENT_OWNER_NAME and get_object().has_node(NodePath(name)):
 		queue_free()
@@ -82,6 +81,8 @@ func __fix_parenting() -> void:
 	if co:
 		if co.has_node(NodePath(name)):
 			co.get_node(NodePath(name)).name = "@to_remove"
-		reparent(co)
+		reparent.call_deferred(co)
+		co.added.emit(self)
 	
-	get_parent().added.emit(self)
+	else:
+		get_parent().added.emit(self)
