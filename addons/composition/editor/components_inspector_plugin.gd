@@ -80,7 +80,15 @@ func _on_component_selected(res: String, object):
 		editor_interface.popup_dialog_centered.call_deferred(error_dialog)
 		return
 
-	if script.get_base_script() != ComponentBaseScript:
+	var inherited_from_component: bool = false
+	var script_base = script.get_base_script()
+	while script_base:
+		if script_base == ComponentBaseScript:
+			inherited_from_component = true
+			break
+		script_base = script_base.get_base_script()
+	
+	if not inherited_from_component:
 		var error_dialog = AcceptDialog.new()
 		error_dialog.title = "Error"
 		error_dialog.dialog_text = "Component must extend Component class"
