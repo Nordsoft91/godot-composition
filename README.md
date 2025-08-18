@@ -8,6 +8,7 @@ A component-based architecture for Godot. Allows to extend the functionality of 
 - Easy creation and management of components from the editor.
 - Work with components as with regular nodes.
 - Components can be created as scenes or scripts.
+- Nested components and inheritance are supported.
 - Fully documented.
 
 ![Composition](docs/images/feature_01.png)
@@ -34,7 +35,7 @@ Composition is a way to extend the functionality of a node by adding new nodes a
 
 ### Creating a component
 
-#### Component script
+#### Component script (option 1)
 
 To create a component, create a new script that extends `Component`. The component will be automatically registered with the composition system.
 
@@ -48,13 +49,13 @@ func _node_ready() -> void:
 	var other_component: Component = other("MyComponent") # Returns sibling component with the given name.
 ```
 
-#### Component scene
+#### Component scene (option 2)
 
 To create a component, create a new scene that extends `Component`. The component will be automatically registered with the composition system.
 
 ![Component scene](docs/images/component_scene.png)
 
-Select component node and press eextend the script with your custom component script.
+Select component node and press extend the script with your custom component script.
 
 ### Work with components from the editor
 
@@ -102,19 +103,12 @@ If you have a nested scene, you can also add new components to the node. In this
 #### Override properties
 
 You can override properties of the component script in the node's inspector.
-But if you simply modify value it will not be saved.
-
-![Override properties](docs/images/override_properties.png)
-
-First, you need to add new component which contains the property you want to override.
-In the example from the screenshot, we will add `component_movable` component.
-
-![Override properties](docs/images/override_properties_2.png)
-
-After that, you can override the property in the node's inspector.
 
 ![Override properties](docs/images/override_properties_3.png)
 
+Once property is modified, new component object will be automatically created if not exist in current scene.
+
+![Override properties](docs/images/override_properties_2.png)
 
 ### Work with components from code
 
