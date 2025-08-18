@@ -8,6 +8,8 @@ var ComponentBaseScript = preload("res://addons/composition/component.gd")
 var editor_interface: EditorInterface = null
 var compatibility_mode: bool = false
 
+var _parse_property_ongoing: bool = false
+
 func _can_handle(object: Object):
 	return object is Node and not object is Component
 	
@@ -35,6 +37,21 @@ func _parse_category(object: Object, category: String):
 			component_owner_check.object = object
 			component_owner_check.editor_interface = editor_interface
 			add_custom_control(component_owner_check)
+
+
+func _parse_property(object: Object, type: Variant.Type, name: String, hint_type: PropertyHint, hint_string: String, usage_flags: int, wide: bool) -> bool:
+	if not _parse_property_ongoing and object.get_script() == ComponentOwnerScript:
+		#get property by key
+		var _plist = object._get_property_list()
+		for _p in _plist:
+			if _p["name"] == name and _p.has("property"):
+				_parse_property_ongoing = true
+				var editor_property = EditorInspector.instantiate_property_editor(object, type, name, hint_type, hint_string, usage_flags, wide)
+				_parse_property_ongoing = false
+				add_property_editor(name, editor_property, false, _p["property"])
+				return true
+	
+	return false
 
 
 func _on_button_back_pressed(object):

@@ -46,21 +46,31 @@ func _get_property_list() -> Array[Dictionary]:
 		})
 		for _p in a.get_script().get_script_property_list():
 			if _p["usage"] != PROPERTY_USAGE_CATEGORY:
+				_p["property"] = _p["name"]
+				_p["component"] = a
+				_p["name"] = a.name + "." + _p["name"]
 				_props.append(_p)
 
 	return _props
 
 func _set(property, value):
-	for a in get_components():
-		var _props = a.get_script().get_script_property_list()
-		for _prop in _props:
-			if _prop["name"] == property:
-				a.set(property, value)
+	for _p in _get_property_list():
+		if _p["name"] == property and _p.has("component") and _p.has("property"):
+			var _comp = _p["component"]
+			if is_instance_valid(_comp):
+				if _comp.owner != get_tree().edited_scene_root:
+					var _pseudo_comp = _comp.duplicate()
+					_pseudo_comp.name = _comp.name
+					get_parent().add_child(_pseudo_comp)
+					_pseudo_comp.owner = get_tree().edited_scene_root
+					_comp = _pseudo_comp
+				
+				_comp.set(_p["property"], value)
 				return
 
 func _get(property):
-	for a in get_components():
-		var _props = a.get_script().get_script_property_list()
-		for _prop in _props:
-			if _prop.name == property:
-				return a.get(property)
+	for _p in _get_property_list():
+		if _p["name"] == property and _p.has("component") and _p.has("property"):
+			var _comp = _p["component"]
+			if is_instance_valid(_comp):
+				return _comp.get(_p["property"])
