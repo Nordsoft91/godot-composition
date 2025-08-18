@@ -13,7 +13,7 @@ func _enter_tree():
 
 	plugin = preload("res://addons/composition/editor/components_inspector_plugin.gd").new()
 	plugin.editor_interface = get_editor_interface()
-	if ver_info.minor < 4:
+	if ver_info.major == 4 and ver_info.minor < 4:
 		plugin.compatibility_mode = true
 		push_warning("Composition plugin is running in compatibility mode. Some features may not work as expected. Please update Godot to 4.4 or higher.")
 

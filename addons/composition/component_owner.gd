@@ -44,7 +44,9 @@ func _get_property_list() -> Array[Dictionary]:
 			"hint_string": a.name,
 			"usage": PROPERTY_USAGE_CATEGORY
 		})
-		_props.append_array(a.get_script().get_script_property_list())
+		for _p in a.get_script().get_script_property_list():
+			if _p["usage"] != PROPERTY_USAGE_CATEGORY:
+				_props.append(_p)
 
 	return _props
 
