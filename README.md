@@ -35,7 +35,7 @@ Composition is a way to extend the functionality of a node by adding new nodes a
 
 ### Creating a component
 
-#### Component script (option 1)
+#### Component script
 
 To create a component, create a new script that extends `Component`. The component will be automatically registered with the composition system.
 
@@ -49,7 +49,7 @@ func _node_ready() -> void:
 	var other_component: Component = other("MyComponent") # Returns sibling component with the given name.
 ```
 
-#### Component scene (option 2)
+#### Component scene
 
 To create a component, create a new scene that extends `Component`. The component will be automatically registered with the composition system.
 
