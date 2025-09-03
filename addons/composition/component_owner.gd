@@ -57,7 +57,7 @@ func _set(property, value):
 	for _p in _get_property_list():
 		if _p["name"] == property and _p.has("component") and _p.has("property"):
 			var _comp = _p["component"]
-			if is_instance_valid(_comp):
+			if Engine.is_editor_hint() and is_instance_valid(_comp):
 				if _comp.owner != get_tree().edited_scene_root:
 					var _pseudo_comp = _comp.duplicate()
 					_pseudo_comp.name = _comp.name
