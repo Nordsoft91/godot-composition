@@ -172,7 +172,7 @@ func _on_component_removed(component: Component) -> void:
 	print("Component removed: ", component)
 ```
 
-Warning: you shoud NOT inherit your nodes from ComponentOwner class.
+Warning: you shoud NOT inherit nodes from ComponentOwner class.
 
 ## Contributing
 
