@@ -11,8 +11,8 @@ texture = ExtResource("1_c7plm")
 
 [node name="ComponentOwner" type="Node" parent="."]
 script = ExtResource("2_uxllr")
-solid = true
-move_time = 0.3
+ComponentGridObject.solid = true
+ComponentMovable.move_time = 0.5
 
 [node name="ComponentGridObject" type="Node" parent="ComponentOwner"]
 script = ExtResource("3_le5mb")
@@ -23,3 +23,4 @@ script = ExtResource("5_o43sl")
 
 [node name="ComponentMovable" type="Node" parent="ComponentOwner"]
 script = ExtResource("5_c7plm")
+move_time = 0.5

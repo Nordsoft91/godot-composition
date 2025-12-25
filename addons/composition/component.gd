@@ -11,9 +11,6 @@ class_name Component extends Node
 ## New components can be created by pressing the "Create component" button, which opens a popup menu where you can select a script or a component scene. 
 ##
 ## To define a component, create a new script that extends Component class.
-##
-## Limitations:
-## - Avoid same property names in different components.
 
 ## @virtual
 ## Override this method to perform initialization when you need to guarantee that all components are ready.

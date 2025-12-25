@@ -30,11 +30,12 @@ metadata/_edit_group_ = true
 
 [node name="ComponentOwner" type="Node" parent="Player"]
 script = ExtResource("3_rujmf")
-move_time = 0.3
-solid = true
+ComponentMovable.move_time = 0.5
+ComponentGridObject.solid = true
 
 [node name="ComponentMovable" type="Node" parent="Player/ComponentOwner"]
 script = ExtResource("4_kkclv")
+move_time = 0.5
 
 [node name="ComponentControl" type="Node" parent="Player/ComponentOwner"]
 script = ExtResource("5_mt10o")
