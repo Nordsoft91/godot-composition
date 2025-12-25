@@ -44,6 +44,7 @@ extends Component
 
 @export var my_property: int = 0
 
+# We are overriding this method to guarantee that all components initialized.
 func _node_ready() -> void:
 	var node: Node = get_object() # Returns node that owns this component.
 	var other_component: Component = other("MyComponent") # Returns sibling component with the given name.
@@ -76,7 +77,7 @@ In this case, you can create a component by adding a new node as a child of the 
 ![Create component button](docs/images/create_component_button.png)
 
 Then select a script or a component scene to create a new component.
-If scripts are not visible, search for them in the search bar. It's advised to name component script and scenes with some prefix, e.g. `component_` or `composition_`.
+If scripts are not visible, search for them in the search bar. It's advised to name component script and scenes with some prefix, for example `component_`.
 
 ![Create component popup](docs/images/create_component_popup.png)
 
@@ -102,11 +103,11 @@ If you have a nested scene, you can also add new components to the node. In this
 
 #### Override properties
 
-You can override properties of the component script in the node's inspector.
+You can override properties of the component script in the node's inspector even for inherited scenes.
 
 ![Override properties](docs/images/override_properties_3.png)
 
-Once property is modified, new component object will be automatically created if not exist in current scene.
+Once property is modified, new component object will be automatically created. This is normally for inherited scenes as this component copy will store modified value.
 
 ![Override properties](docs/images/override_properties_2.png)
 
@@ -170,6 +171,8 @@ func _on_component_added(component: Component) -> void:
 func _on_component_removed(component: Component) -> void:
 	print("Component removed: ", component)
 ```
+
+Warning: you shoud NOT inherit your nodes from ComponentOwner class.
 
 ## Contributing
 
