@@ -5,6 +5,8 @@ var ComponentOwnerControl = preload("res://addons/composition/editor/component_o
 var ComponentOwnerScript = preload("res://addons/composition/component_owner.gd")
 var ComponentBaseScript = preload("res://addons/composition/component.gd")
 
+var SelectComponentPopupScene = preload("res://addons/composition/editor/select_component_popup.tscn")
+
 var editor_interface: EditorInterface = null
 var compatibility_mode: bool = false
 
@@ -62,7 +64,9 @@ func _on_button_back_pressed(object):
 
 
 func _on_button_new_component(object):
-	editor_interface.call_deferred("popup_quick_open", _on_component_selected.bind(object), ["Script", "PackedScene"])
+	var popup = SelectComponentPopupScene.instantiate()
+	popup.component_selected.connect(_on_component_selected.bind(object))
+	editor_interface.popup_dialog_centered(popup)
 
 
 func _on_component_selected(res: String, object):
