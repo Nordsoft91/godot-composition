@@ -35,6 +35,16 @@ static func component_owner(object: Node) -> Node:
 		return co
 	return null
 
+## Creates component owner object for a given node if doesn't exist and returns it.
+## If component owner already exist, call equivalent to component_owner()
+static func make_component_owner(object: Node) -> Node:
+	var co = component_owner(object)
+	if co:
+		return co
+	co = load("res://addons/composition/component_owner.gd").new()
+	object.add_child(co, false)
+	return co
+
 ## Returns component with the given name.
 ## If component is not found, returns null.
 static func find(object: Node, component_name: String) -> Component:
@@ -53,6 +63,8 @@ static func add(object: Node, component: Component) -> void:
 	var co = component_owner(object)
 	if co:
 		co.add_child(component)
+	else:
+		push_warning("Object ", object.name, " doesn't have component owner. Consider calling make_component_owner first.")
 
 
 const COMPONENT_OWNER_NAME: String = "ComponentOwner"
