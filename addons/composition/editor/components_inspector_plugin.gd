@@ -139,6 +139,14 @@ func _on_component_selected(res: String, object):
 		object.add_child(component)
 		component.owner = object.owner
 	else:
+		# falls here if component is added to object created from scene, which is ComponentOwner
+		if object.has_node(component_name):
+			# for component override, set properties as in parent scene
+			var default_component: Component = object.get_node(component_name)
+			for prop in script.get_script_property_list():
+				if prop["usage"] | PropertyUsageFlags.PROPERTY_USAGE_EDITOR:
+					component.set(prop["name"], default_component.get(prop["name"]))
+		
 		object.get_parent().add_child(component)
 		component.owner = object.get_parent().owner
 
