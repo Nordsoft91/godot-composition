@@ -18,6 +18,8 @@ func _can_handle(object: Object):
 func _parse_begin(object: Object):
 	if not compatibility_mode and object.get_script() == ComponentOwnerScript:
 		var button_new = Button.new()
+		button_new.icon = preload("res://addons/composition/icons/component.png")
+		button_new.expand_icon = true
 		button_new.text = "Create component"
 		button_new.tooltip_text = "Create new component. Select a script or a component scene."
 		button_new.set_h_size_flags(Control.SIZE_EXPAND_FILL)
@@ -28,7 +30,9 @@ func _parse_category(object: Object, category: String):
 	if category == "Node":
 		if object.get_script() == ComponentOwnerScript:
 			var button_back = Button.new()
+			button_back.icon = editor_interface.get_editor_theme().get_icon("Back", "EditorIcons")
 			button_back.text = "Node Properties"
+			button_back.expand_icon = true
 			button_back.tooltip_text = "Return to node properties"
 			button_back.set_h_size_flags(Control.SIZE_EXPAND_FILL)
 			button_back.pressed.connect(_on_button_back_pressed.bind(object), CONNECT_DEFERRED)

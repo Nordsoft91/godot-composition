@@ -18,6 +18,8 @@ func show_components_button():
 	#Node.AUTO_TRANSLATE_MODE_DISABLED, hardcoded for compatibility
 	if to_components_button.get("auto_translate_mode") != null:
 		to_components_button.set("auto_translate_mode", 2) 
+	to_components_button.icon = preload("res://addons/composition/icons/component_owner.png")
+	to_components_button.expand_icon = true
 	to_components_button.text = "Components"
 	to_components_button.tooltip_text = "Go to components"
 	to_components_button.set_h_size_flags(SIZE_EXPAND_FILL)
