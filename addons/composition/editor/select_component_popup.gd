@@ -19,6 +19,7 @@ func _on_about_to_popup() -> void:
 	
 		for i in range(current_dir.get_file_count()):
 			var add_to_list: bool = false
+			var icon: Texture2D = null
 			var ftype = current_dir.get_file_type(i)
 			var fullpath = current_dir.get_path() + current_dir.get_file(i)
 			if ftype == "PackedScene":
@@ -32,15 +33,20 @@ func _on_about_to_popup() -> void:
 								var script: Script = state.get_node_property_value(ni, npi)
 								var base_script = script.get_base_script()
 								if (base_script and base_script.get_global_name() == "Component") or script.get_global_name() == "Component":
-									add_to_list = true
+									if EditorInterface.get_editor_theme():
+										icon = EditorInterface.get_editor_theme().get_icon("PackedScene", "EditorIcons")
+									add_to_list = true #scene
+									
 				
 			var class_extends = current_dir.get_file_script_class_extends(i)
 			if class_extends == "Component":
-				add_to_list = true
+				if EditorInterface.get_editor_theme():
+					icon = EditorInterface.get_editor_theme().get_icon("Script", "EditorIcons")
+				add_to_list = true #script
 			
 			if add_to_list:
 				var file = current_dir.get_file(i)
-				var idx = %ComponentList.add_item(file)
+				var idx = %ComponentList.add_item(file, icon)
 				%ComponentList.set_item_metadata(idx, fullpath)
 
 	call_deferred("update_size")
