@@ -2,7 +2,7 @@ extends Component
 ## This component is for demonstration purposes only.
 ## It is not intended to be used in a game.
 
-@export var move_time: float = 0.3
+@export var move_time: float = 0.3 ## How much time it takes to move, in seconds
 
 const TILE_SIZE: int = 64
 

@@ -74,3 +74,26 @@ func _get(property):
 			var _comp = _p["component"]
 			if is_instance_valid(_comp):
 				return _comp.get(_p["property"])
+
+
+func _property_can_revert(property) -> bool:
+	for _p in _get_property_list():
+		if _p["name"] == property and _p.has("component") and _p.has("property"):
+			var _comp = _p["component"]
+			if is_instance_valid(_comp):
+				var _comp_script: Script = _comp.get_script()
+				if _comp_script:
+					var _default_value = _comp_script.get_property_default_value(_p["property"])
+					return _comp.get(_p["property"]) != _default_value
+	return false
+
+
+func _property_get_revert(property) -> Variant:
+	for _p in _get_property_list():
+		if _p["name"] == property and _p.has("component") and _p.has("property"):
+			var _comp = _p["component"]
+			if is_instance_valid(_comp):
+				var _comp_script: Script = _comp.get_script()
+				if _comp_script:
+					return _comp_script.get_property_default_value(_p["property"])
+	return null
