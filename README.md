@@ -64,8 +64,8 @@ func _node_ready() -> void:
 	var other_component: Component = other("MyComponent") # Returns sibling component with the given name.
 ```
 
-> [!TIP]
-> It's sufficient having only script to define new component. You may not have scene for each new component.
+> [!NOTE]
+> It's sufficient to have script to define new component. You may not have new scene for each component.
 
 ### Work with components from the editor
 
@@ -75,7 +75,7 @@ There is `Components` button in the node's inspector to see all components that 
 
 ![Components button](docs/images/components_button.png)
 
-You can also see `ComponentOwner` node in the node's hierarchy. This node is the owner of the components.
+Once clicking it, you will see `ComponentOwner` node appeared in the node's hierarchy. This node will be parent of the components.
 
 ![ComponentOwner node](docs/images/component_owner.png)
 
@@ -86,9 +86,7 @@ To create a new component press the `Create component` button in the node's insp
 
 ![Create component button](docs/images/create_component_button.png)
 
-Then select a script or a component scene to create a new component.
-
-If scripts are not visible, search for them in the search bar. It's advised to name component script and scenes with some prefix, for example `component_`.
+In pop-up dialog select a script or a scene to add a component.
 
 ![Create component popup](docs/images/create_component_popup.png)
 
@@ -101,6 +99,9 @@ To return to the node's inspector press the `Node Properties` button.
 ![Node properties button](docs/images/node_properties_button.png)
 
 To remove a component, find it in scene tree and remove normally as any other node.
+
+> [!TIP]
+> It's advised to name component script and scenes with some prefix, for example `component_`.
 
 #### Nested scenes
 
@@ -154,6 +155,9 @@ You can also use `other` method to get a sibling component with the given name.
 var component_a = Component.find(node, "MyComponentA")
 var component_b = component_a.other("MyComponentB")
 ```
+
+> [!TIP]
+> Documentation for all methods is located at addons/composition/component.gd
 
 ### Component owner
 
