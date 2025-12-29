@@ -77,6 +77,9 @@ func _get(property):
 
 
 func _property_can_revert(property) -> bool:
+	if owner != get_tree().edited_scene_root:
+		return false
+	
 	for _p in _get_property_list():
 		if _p["name"] == property and _p.has("component") and _p.has("property"):
 			var _comp = _p["component"]
