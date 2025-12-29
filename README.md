@@ -35,53 +35,64 @@ Composition is a way to extend the functionality of a node by adding new nodes a
 
 ### Creating a component
 
+#### Component scene
+
+You can create component scene by inheriting `Component` node.
+
+![Create new scene](docs/images/create_scene.png)
+
+![Component scene](docs/images/component_scene.png)
+
+Select component node and press extend the script with your custom component script.
+
+![Extend script](docs/images/extend_script.png)
+
 #### Component script
 
-To create a component, create a new script that extends `Component`. The component will be automatically registered with the composition system.
+To define component, script must extends `Component`. The component will be automatically registered with the composition system.
+
+Components can be both unnamed or have specific `class_name` as any other object.
 
 ```gdscript
 extends Component
 
 @export var my_property: int = 0
 
-# We are overriding this method to guarantee that all components initialized.
+# This method guarantees that all components are initialized.
 func _node_ready() -> void:
 	var node: Node = get_object() # Returns node that owns this component.
 	var other_component: Component = other("MyComponent") # Returns sibling component with the given name.
 ```
 
-#### Component scene
-
-To create a component, create a new scene that extends `Component`. The component will be automatically registered with the composition system.
-
-![Component scene](docs/images/component_scene.png)
-
-Select component node and press extend the script with your custom component script.
+> [!TIP]
+> It's sufficient having only script to define new component. You may not have scene for each new component.
 
 ### Work with components from the editor
 
-Components are owned by a node. Any node can be the owner of a component.
-You can find `Components` button in the node's inspector to see the components that are owned by the node.
+Components belong to a node. Any node can be extended with components.
+
+There is `Components` button in the node's inspector to see all components that belong to the node.
 
 ![Components button](docs/images/components_button.png)
 
-You can also find `ComponentOwner` node in the node's hierarchy. This node is the owner of the components.
+You can also see `ComponentOwner` node in the node's hierarchy. This node is the owner of the components.
 
 ![ComponentOwner node](docs/images/component_owner.png)
 
 To create a new component press the `Create component` button in the node's inspector.
 
-*Note: This button is available only in Godot 4.4 or higher.
-In this case, you can create a component by adding a new node as a child of the node and extending the script with your custom component script.*
+> [!NOTE]
+> This button is available only in Godot 4.4 or higher. If you work with older versions, you can create component by adding new node as a child of the ComponenyOwner node and extending the script with your custom component script.
 
 ![Create component button](docs/images/create_component_button.png)
 
 Then select a script or a component scene to create a new component.
+
 If scripts are not visible, search for them in the search bar. It's advised to name component script and scenes with some prefix, for example `component_`.
 
 ![Create component popup](docs/images/create_component_popup.png)
 
-You will be able to see and edit all the components that are owned by the node from the inspector.
+You will be able to see and edit all the components that belong to the node from the inspector.
 
 ![Component inspector](docs/images/feature_01.png)
 
@@ -89,15 +100,13 @@ To return to the node's inspector press the `Node Properties` button.
 
 ![Node properties button](docs/images/node_properties_button.png)
 
-If you have a nested scene, you can add new components to the node by adding new nodes as children of the desired node. Select `Component` node type and extend the script with your custom component script.
-
-![Component node](docs/images/component_scene.png)
-
-To remove a component, select it from scene tree and press the `Remove` button.
+To remove a component, find it in scene tree and remove normally as any other node.
 
 #### Nested scenes
 
 If you have a nested scene, you can also add new components to the node. In this case, original scene will not be modified.
+
+The only difference with nested scene is that components belong directly to the node instead of `ComponentOwner` in the editor.
 
 ![Nested scene](docs/images/nested_scene.png)
 
@@ -148,16 +157,26 @@ var component_b = component_a.other("MyComponentB")
 
 ### Component owner
 
-The component owner is a node that owns the components. The owner node can be any node that has a ComponentOwner node as a child.
+The component owner is a parent node for all components, owned by actual node you want to be extended with components.
 
 You can find the component owner node in the node's hierarchy.
-From code, you can get the component owner node using `Component.component_owner` method.
+
+From code, you can get component owner node using `Component.component_owner` method.
 
 ```gdscript
+# Returns component owner if it exists or null
 var component_owner = Component.component_owner(node)
 ```
 
-This object has signals that are emitted when a component is added or removed.
+Or `Component.make_component_owner` method.
+
+```gdscript
+# Creates and returns component owner
+# If it exists, equivalent to Component.component_owner(node)
+var component_owner = Component.make_component_owner(node)
+```
+
+Component owner object has signals that are emitted when a component is added or removed.
 
 ```gdscript
 func _ready():
@@ -171,8 +190,6 @@ func _on_component_added(component: Component) -> void:
 func _on_component_removed(component: Component) -> void:
 	print("Component removed: ", component)
 ```
-
-Warning: you shoud NOT inherit nodes from ComponentOwner class.
 
 ## Contributing
 
