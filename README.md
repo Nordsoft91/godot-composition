@@ -135,6 +135,12 @@ To get all components use `Component.all` method.
 var components = Component.all(node)
 ```
 
+To find all components that are instances of a certain type, use `Component.query()`.
+
+```gdscript
+var status_effects : Array[Component] = Component.query(node, StatusEffectComponent)
+```
+
 To add a component to a node use `Component.add` method.
 
 ```gdscript
