@@ -26,16 +26,21 @@ func _on_about_to_popup() -> void:
 				var packed_scene: PackedScene = load(fullpath)
 				var state: SceneState = packed_scene.get_state()
 				for ni in range(state.get_node_count()):
+					if add_to_list:
+						break
 					if state.get_node_path(ni, true).is_empty():
 						for npi in range(state.get_node_property_count(ni)):
 							var prop = state.get_node_property_name(ni, npi)
 							if prop == "script":
-								var script: Script = state.get_node_property_value(ni, npi)
+								var script = state.get_node_property_value(ni, npi)
+								if not script or not script is Script:
+									continue
 								var base_script = script.get_base_script()
 								if (base_script and base_script.get_global_name() == "Component") or script.get_global_name() == "Component":
 									if EditorInterface.get_editor_theme():
 										icon = EditorInterface.get_editor_theme().get_icon("PackedScene", "EditorIcons")
 									add_to_list = true #scene
+									break
 									
 				
 			var class_extends = current_dir.get_file_script_class_extends(i)
