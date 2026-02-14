@@ -53,6 +53,14 @@ static func find(object: Node, component_name: String) -> Component:
 		return co.get_node(component_name)
 	return null
 
+## Returns an array of all components that are instances of the given type.
+static func query(object: Node, component_class: Variant) -> Array[Component]:
+	var co = component_owner(object)
+	if co:
+		var all = Component.all(object)
+		return all.filter(func(c: Component): return is_instance_of(c, component_class))
+	return []
+
 ## Returns all components of a given node.
 static func all(object: Node) -> Array[Component]:
 	return component_owner(object).get_components()
