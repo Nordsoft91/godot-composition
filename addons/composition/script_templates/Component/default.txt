@@ -1,0 +1,8 @@
+# meta-description: Default component class
+# meta-default: true
+
+@icon("res://addons/composition/icons/component.png")
+extends Component
+
+func _node_ready() -> void:
+_TS_pass
