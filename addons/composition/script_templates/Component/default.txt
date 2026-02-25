@@ -1,4 +1,4 @@
-# meta-description: Default component class
+# meta-description: Default component implementation.
 # meta-default: true
 
 @icon("res://addons/composition/icons/component.png")

@@ -51,6 +51,10 @@ Select component node and press extend the script with your custom component scr
 
 To define component, script must extends `Component`. The component will be automatically registered with the composition system.
 
+Plugin automatically installs and selects component script template.
+
+![Script template](docs/images/script_template.png)
+
 Components can be both unnamed or have specific `class_name` as any other object.
 
 ```gdscript
